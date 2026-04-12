@@ -1,0 +1,21 @@
+/* admin/js/admin-app/src/style.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#ptm-admin-app {
+  @apply font-sans antialiased text-gray-800;
+}
+
+/* Table utility */
+.ptm-table { @apply w-full text-sm border-collapse; }
+.ptm-table th { @apply text-left font-semibold text-ptm-gray py-3 px-4 bg-gray-50 border-b border-gray-200; }
+.ptm-table td { @apply py-3 px-4 border-b border-gray-100; }
+.ptm-table tr:hover td { @apply bg-gray-50; }
+
+/* Card */
+.ptm-card { @apply bg-white rounded-xl shadow-sm border border-gray-200 p-6; }
+
+/* Badge */
+.ptm-badge-active   { @apply inline-flex px-2 py-0.5 rounded-full text-xs font-semibold bg-green-100 text-green-700; }
+.ptm-badge-inactive { @apply inline-flex px-2 py-0.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-600; }
