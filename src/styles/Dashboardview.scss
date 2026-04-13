@@ -1,0 +1,492 @@
+// ============================================================
+// dashboard.scss  –  Material Design–inspired Admin Dashboard
+// Fonts  : Plus Jakarta Sans (Google Fonts)
+// Icons  : Material Symbols Rounded (Google Fonts CDN)
+// Theme  : Light only
+// ============================================================
+
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
+
+// ── Tokens ──────────────────────────────────────────────────
+:root {
+  --md-primary: #1a56db;
+  --md-primary-50: #eff6ff;
+  --md-primary-100: #dbeafe;
+  --md-primary-200: #bfdbfe;
+  --md-primary-600: #1d4ed8;
+
+  --md-teal: #0d9488;
+  --md-teal-50: #f0fdfa;
+  --md-teal-100: #ccfbf1;
+
+  --md-success: #16a34a;
+  --md-success-bg: #dcfce7;
+  --md-success-text: #14532d;
+
+  --md-warning: #d97706;
+  --md-warning-bg: #fef3c7;
+  --md-warning-text: #78350f;
+
+  --md-error: #dc2626;
+  --md-error-bg: #fee2e2;
+
+  --md-purple: #7c3aed;
+  --md-purple-bg: #ede9fe;
+  --md-purple-text: #4c1d95;
+
+  --md-orange: #ea580c;
+  --md-orange-bg: #ffedd5;
+  --md-orange-text: #7c2d12;
+
+  --md-bg: #f8fafc;
+  --md-surface: #ffffff;
+  --md-surface-2: #f1f5f9;
+  --md-border: #e2e8f0;
+  --md-divider: #f1f5f9;
+
+  --md-text-1: #0f172a;
+  --md-text-2: #334155;
+  --md-text-3: #64748b;
+  --md-text-4: #94a3b8;
+
+  --md-elev-1: 0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+  --md-elev-hover: 0 8px 25px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.06);
+
+  --md-r-sm: 8px;
+  --md-r-md: 12px;
+  --md-r-lg: 16px;
+
+  --md-font: "Plus Jakarta Sans", system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--md-font);
+  background: var(--md-bg);
+  color: var(--md-text-1);
+  -webkit-font-smoothing: antialiased;
+}
+
+// ── Material Symbols helper ──────────────────────────────────
+.ms {
+  font-family: "Material Symbols Rounded";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
+  font-variation-settings:
+    "FILL" 1,
+    "wght" 300,
+    "GRAD" 0,
+    "opsz" 24;
+  user-select: none;
+}
+
+// ── Dashboard root ───────────────────────────────────────────
+.dashboard {
+  padding: 28px 32px;
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  animation: db-enter 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  @media (max-width: 640px) {
+    padding: 16px 8px;
+  }
+}
+
+@keyframes db-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ── Stat Grid ────────────────────────────────────────────────
+.stat-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (min-width: 1100px) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.stat-card {
+  background: var(--md-surface);
+  border: 1px solid var(--md-border);
+  border-radius: var(--md-r-lg);
+  padding: 20px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  box-shadow: var(--md-elev-1);
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+  }
+
+  // Top accent bar
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: var(--_accent, var(--md-primary));
+    border-radius: var(--md-r-lg) var(--md-r-lg) 0 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  &:hover {
+    box-shadow: var(--md-elev-hover);
+    transform: translateY(-3px);
+
+    &::before {
+      transform: scaleX(1);
+    }
+  }
+
+  &__icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--md-r-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    .ms {
+      font-size: 22px;
+      font-variation-settings:
+        "FILL" 1,
+        "wght" 400,
+        "GRAD" 0,
+        "opsz" 24;
+    }
+  }
+
+  &__value {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--md-text-1);
+    line-height: 1;
+    letter-spacing: -0.5px;
+    display: block;
+  }
+
+  &__label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--md-text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-top: 3px;
+    display: block;
+  }
+}
+
+// Card colour variants
+.stat-card--subjects {
+  --_accent: #1a56db;
+  .stat-card__icon-wrap {
+    background: #dbeafe;
+    .ms {
+      color: #1a56db;
+    }
+  }
+}
+.stat-card--tests {
+  --_accent: #7c3aed;
+  .stat-card__icon-wrap {
+    background: #ede9fe;
+    .ms {
+      color: #7c3aed;
+    }
+  }
+}
+.stat-card--questions {
+  --_accent: #d97706;
+  .stat-card__icon-wrap {
+    background: #fef3c7;
+    .ms {
+      color: #d97706;
+    }
+  }
+}
+.stat-card--attempts {
+  --_accent: #0d9488;
+  .stat-card__icon-wrap {
+    background: #ccfbf1;
+    .ms {
+      color: #0d9488;
+    }
+  }
+}
+.stat-card--completed {
+  --_accent: #16a34a;
+  .stat-card__icon-wrap {
+    background: #dcfce7;
+    .ms {
+      color: #16a34a;
+    }
+  }
+}
+.stat-card--avgscore {
+  --_accent: #ea580c;
+  .stat-card__icon-wrap {
+    background: #ffedd5;
+    .ms {
+      color: #ea580c;
+    }
+  }
+}
+
+// ── Chart Grid ────────────────────────────────────────────────
+.chart-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+// ── Panel ─────────────────────────────────────────────────────
+.panel {
+  background: var(--md-surface);
+  border: 1px solid var(--md-border);
+  border-radius: var(--md-r-lg);
+  padding: 20px 24px 24px;
+  box-shadow: var(--md-elev-1);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--md-divider);
+  }
+
+  &__icon-wrap {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--md-r-sm);
+    background: var(--md-primary-50);
+    border: 1px solid var(--md-primary-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    .ms {
+      font-size: 19px;
+      color: var(--md-primary);
+      font-variation-settings:
+        "FILL" 1,
+        "wght" 400,
+        "GRAD" 0,
+        "opsz" 24;
+    }
+  }
+
+  &__meta {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__title {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--md-text-1);
+  }
+
+  &__subtitle {
+    font-size: 11px;
+    color: var(--md-text-4);
+    margin-top: 2px;
+    font-weight: 500;
+  }
+
+  &__chart-area {
+    height: 210px;
+    position: relative;
+  }
+
+  &__chart-area--donut {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+// Table panel — teal icon tint
+.panel--table {
+  .panel__icon-wrap {
+    background: var(--md-teal-50);
+    border-color: var(--md-teal-100);
+    .ms {
+      color: var(--md-teal);
+    }
+  }
+}
+
+// ── Table ─────────────────────────────────────────────────────
+.table-scroll {
+  overflow-x: auto;
+  border-radius: var(--md-r-md);
+  border: 1px solid var(--md-border);
+}
+
+.attempts-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+
+  thead tr {
+    background: var(--md-surface-2);
+  }
+
+  th {
+    padding: 10px 16px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--md-text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    border-bottom: 1px solid var(--md-border);
+    white-space: nowrap;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid var(--md-divider);
+    transition: background 0.15s;
+
+    &:last-child {
+      border-bottom: none;
+    }
+    &:hover {
+      background: var(--md-primary-50);
+    }
+  }
+
+  td {
+    padding: 12px 16px;
+    color: var(--md-text-2);
+    vertical-align: middle;
+    white-space: nowrap;
+
+    &.td--name {
+      font-weight: 600;
+      color: var(--md-text-1);
+    }
+    &.td--muted {
+      color: var(--md-text-3);
+      font-size: 12.5px;
+    }
+    &.td--score {
+      font-weight: 600;
+      color: var(--md-text-1);
+      font-variant-numeric: tabular-nums;
+    }
+  }
+}
+
+// ── Badge ─────────────────────────────────────────────────────
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px 4px 6px;
+  border-radius: 99px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+
+  .ms {
+    font-size: 14px;
+    font-variation-settings:
+      "FILL" 1,
+      "wght" 500,
+      "GRAD" 0,
+      "opsz" 20;
+  }
+
+  &--completed {
+    background: var(--md-success-bg);
+    color: var(--md-success-text);
+    .ms {
+      color: var(--md-success);
+    }
+  }
+
+  &--pending {
+    background: var(--md-warning-bg);
+    color: var(--md-warning-text);
+    .ms {
+      color: var(--md-warning);
+    }
+  }
+}
+
+// ── Empty state ───────────────────────────────────────────────
+.table-empty td {
+  text-align: center;
+  padding: 40px 16px !important;
+
+  .ms {
+    display: block;
+    font-size: 40px !important;
+    color: var(--md-text-4);
+    margin: 0 auto 8px;
+    font-variation-settings:
+      "FILL" 1,
+      "wght" 200,
+      "GRAD" 0,
+      "opsz" 48;
+  }
+
+  span {
+    display: block;
+    font-size: 13px;
+    color: var(--md-text-3);
+  }
+}
